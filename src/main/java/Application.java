@@ -34,7 +34,7 @@ public class Application {
                 case 2:     comprarProducte();      break;
 
                 case 10:    mostrarInventari();     break;
-                case 11:    afegirProductes();      break;
+                case 11:    afegirProductes(lector);      break;
                 case 12:    modificarMaquina();     break;
                 case 13:    mostrarBenefici();      break;
 
@@ -57,7 +57,7 @@ public class Application {
          */
     }
 
-    private static void afegirProductes() {
+    private static void afegirProductes(Scanner lector) {
 
         /**
          *      Crear un nou producte amb les dades que ens digui l'operari
@@ -77,10 +77,19 @@ public class Application {
         String descripcioProducte;
         float preuCompra;
         float preuVenda;
+        lector.nextLine();
+        System.out.println("Intordueix el codi del producte");
+        codiProducte = lector.nextLine();
+        System.out.println("Introdueix el nom del producte");
+        nomProducte = lector.nextLine();
+        System.out.println("Posa una descripció al producte");
+        descripcioProducte = lector.nextLine();
+        System.out.println("Digues el preu de compra");
+        preuCompra = Float.parseFloat(lector.nextLine());
+        System.out.println("Digues el preu de venda");
+        preuVenda = Float.parseFloat(lector.nextLine());
 
-
-        Producte p = new Producte("pomaP", "Pink Lady", "Poma Pink Lady envasada",
-                0.2f, 1.0f);
+        Producte p = new Producte(codiProducte, nomProducte,descripcioProducte,preuCompra,preuVenda);
 
         try {
 
@@ -95,6 +104,7 @@ public class Application {
             }
 
         } catch (SQLException e) {          //TODO: tractar les excepcions
+
             e.printStackTrace();
             System.out.println(e.getErrorCode());
         }
