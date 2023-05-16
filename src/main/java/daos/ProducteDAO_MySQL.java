@@ -49,7 +49,7 @@ public class ProducteDAO_MySQL implements ProducteDAO {
 
     @Override
     public ArrayList<Producte> readProductes() throws SQLException {
-        ArrayList<Producte> llistaProductes = new ArrayList<Producte>();
+        ArrayList<Producte> llistaProductes = new ArrayList<>();
         PreparedStatement ps = conn.prepareStatement("SELECT * FROM producte");
 
         ResultSet rs = ps.executeQuery();

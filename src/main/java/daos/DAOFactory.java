@@ -2,6 +2,7 @@ package daos;
 
 public class DAOFactory {
     private static DAOFactory instance;
+    private static ProducteDAO producteDAOinstance;
     private DAOFactory() {
         // init ConnectionFactory
     }
@@ -10,13 +11,15 @@ public class DAOFactory {
             instance = new DAOFactory();
         return instance;
     }
-    public CustomerDAO getCustomerDAO() {
-        // implementar-ho
+    public ProducteDAO getProducteDAO() {
+        if(producteDAOinstance == null)
+            producteDAOinstance = new ProducteDAO_MySQL();
+        return producteDAOinstance;
     }
-    public AccountDAO getAccountDAO() {
+    /*public AccountDAO getAccountDAO() {
         // implementar-ho
     }
     public OrderDAO getOrderDAO() {
         // implementar-ho
-    }
+    }*/
 }

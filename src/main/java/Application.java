@@ -1,6 +1,9 @@
+import daos.DAOFactory;
 import daos.ProducteDAO;
 import daos.ProducteDAO_MySQL;
+import daos.SlotDAO_MySQL;
 import model.Producte;
+import model.Slot;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,9 +14,10 @@ public class Application {
     //Passar al DAO -->     //TODO: llegir les propietats de la BD d'un fitxer de configuració (Properties)
     //En general -->        //TODO: Afegir un sistema de Logging per les classes.
 
+    private static DAOFactory df = DAOFactory.getInstance();
     private static ProducteDAO producteDAO = new ProducteDAO_MySQL();            //TODO: passar a una classe DAOFactory
-
-    public static void main(String[] args) {
+    private static SlotDAO_MySQL slotDAO = new SlotDAO_MySQL();
+    public static void main(String[] args) throws SQLException {
 
         Scanner lector = new Scanner(System.in);            //TODO: passar Scanner a una classe InputHelper
         int opcio = 0;
@@ -124,7 +128,7 @@ public class Application {
 
     }
 
-    private static void mostrarMaquina() {
+    private static void mostrarMaquina() throws SQLException {
 
         /** IMPORTANT **
          * S'està demanat NOM DEL PRODUCTE no el codiProducte (la taula Slot conté posició, codiProducte i stock)
@@ -137,6 +141,14 @@ public class Application {
          * 3            Coca-Cola Zero          10
          * 4            Aigua 0.5L              7
          */
+        ArrayList<Slot> llistaProductes = slotDAO.readSlots();
+        for(Slot s : llistaProductes)
+        {
+            System.out.println("Posició: " + s.getPosicio());
+            System.out.println("Quantitat: " + s.getQuantitat());
+            System.out.println("Nom: " + s.getCodiProducte());
+            System.out.println("==============================");
+        }
     }
 
     private static void mostrarMenu() {
