@@ -5,6 +5,7 @@ import daos.SlotDAO_MySQL;
 import model.Producte;
 import model.Slot;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -128,25 +129,35 @@ public class Application {
 
     }
 
+    /**
+     * S'encarrega de mostrar la posició, quantitat i nom del producte
+     * @throws SQLException
+     */
     private static void mostrarMaquina() throws SQLException {
 
-        /** IMPORTANT **
-         * S'està demanat NOM DEL PRODUCTE no el codiProducte (la taula Slot conté posició, codiProducte i stock)
-         * també s'acceptarà mostrant només el codi producte, però comptarà menys.
-         *
-         * Posicio      Producte                Quantitat disponible
-         * ===========================================================
-         * 1            Patates 3D              8
-         * 2            Doritos Tex Mex         6
-         * 3            Coca-Cola Zero          10
-         * 4            Aigua 0.5L              7
-         */
-        ArrayList<Slot> llistaProductes = slotDAO.readSlots();
-        for(Slot s : llistaProductes)
+        ArrayList<Slot> llistaSlots = slotDAO.readSlots();
+        ArrayList<Producte> llistaProducte = producteDAO.readProductes();
+        mostrarProductes(llistaSlots, llistaProducte);
+    }
+
+    /**
+     * Fa el bucle buscant totes les dades
+     * @param llistaSlots pasa la llista de slots
+     * @param llistaProducte pasa la llista productes
+     * @throws SQLException
+     */
+    private static void mostrarProductes(ArrayList<Slot> llistaSlots, ArrayList<Producte> llistaProducte) throws SQLException {
+        for(Slot s : llistaSlots)
         {
             System.out.println("Posició: " + s.getPosicio());
             System.out.println("Quantitat: " + s.getQuantitat());
-            System.out.println("Nom: " + s.getCodiProducte());
+            for(Producte p : llistaProducte)
+            {
+                if(s.getCodiProducte().equals(p.getCodiProducte()))
+                {
+                    System.out.println("Nom: " + p.getNom());
+                }
+            }
             System.out.println("==============================");
         }
     }

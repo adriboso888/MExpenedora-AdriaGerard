@@ -42,8 +42,8 @@ public class SlotDAO_MySQL implements SlotDAO {
     public ArrayList<Slot> readSlots() throws SQLException {
         ArrayList<Slot> llistaSlots = new ArrayList<>();
         PreparedStatement ps = conn.prepareStatement("SELECT * FROM slot");
-
         ResultSet rs = ps.executeQuery();
+
         while(rs.next())
         {
             Slot s = new Slot();
