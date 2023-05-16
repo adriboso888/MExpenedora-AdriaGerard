@@ -47,15 +47,6 @@ public class SlotDAO_MySQL implements SlotDAO {
         while(rs.next())
         {
             Slot s = new Slot();
-
-            /**
-             p.setCodiProducte(rs.getString(codi_producte));
-             p.setNom(rs.getString(nom));
-             p.setDescripcio(rs.getString(descripcio));
-             p.setPreuCompra(rs.getFloat(preu_compra));
-             p.setPreuVenta(rs.getFloat(preu_venta));
-             **/
-
             s.setPosicio(Integer.parseInt(rs.getString(1)));
             s.setQuantitat(Integer.parseInt(rs.getString(2)));
             s.setCodiProducte(rs.getString(3));

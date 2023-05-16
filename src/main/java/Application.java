@@ -127,6 +127,7 @@ public class Application {
          * (stock de la màquina es manté guardat entre reinicis del programa)
          */
 
+
     }
 
     /**
