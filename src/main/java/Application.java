@@ -6,6 +6,7 @@ import model.Producte;
 import model.Slot;
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,31 +19,28 @@ public class Application {
     static DAOFactory df = DAOFactory.getInstance();
     private static ProducteDAO producteDAO = new ProducteDAO_MySQL();            //TODO: passar a una classe DAOFactory
     private static SlotDAO_MySQL slotDAO = new SlotDAO_MySQL();
+
     public static void main(String[] args) throws SQLException {
 
         Scanner lector = new Scanner(System.in);            //TODO: passar Scanner a una classe InputHelper
         int opcio = 0;
 
-        do
-        {
+        do {
             mostrarMenu();
             opcio = lector.nextInt();
 
-            switch (opcio)
-            {
-                case 1:     mostrarMaquina();       break;
-                case 2:     comprarProducte();      break;
-
-                case 10:    mostrarInventari();     break;
-                case 11:    afegirProductes(lector);      break;
-                case 12:    modificarMaquina();     break;
-                case 13:    mostrarBenefici();      break;
-
-                case -1:    System.out.println("Bye...");           break;
-                default:    System.out.println("Opció no vàlida");
+            switch (opcio) {
+                case 1 -> mostrarMaquina();
+                case 2 -> comprarProducte();
+                case 10 -> mostrarInventari();
+                case 11 -> afegirProductes(lector);
+                case 12 -> modificarMaquina();
+                case 13 -> mostrarBenefici();
+                case -1 -> System.out.println("Bye...");
+                default -> System.out.println("Opció no vàlida");
             }
 
-        }while(opcio != -1);
+        } while (opcio != -1);
 
     }
 
@@ -58,8 +56,15 @@ public class Application {
 
     }
 
-    private static void afegirProductes(Scanner lector) {
+    /**
+     * Crearem un producte nou passant-ho per parametres, demanant a l'usuari que introdueixi totes les dades
+     *
+     * @param lector
+     * @throws SQLException
+     */
+    private static void afegirProductes(Scanner lector) throws SQLException {
 
+<<<<<<< HEAD
         /**
          *      Crear un nou producte amb les dades que ens digui l'operari
          *      Agefir el producte a la BD (tenir en compte les diferents situacions que poden passar)
@@ -73,6 +78,26 @@ public class Application {
          */
 
         Input input = Input.readProducte();
+=======
+        String codiProducte;
+        String nomProducte;
+        String descripcioProducte;
+        float preuCompra;
+        float preuVenda;
+        lector.nextLine();
+        System.out.println("Intordueix el codi del producte");
+        codiProducte = lector.nextLine();
+        System.out.println("Introdueix el nom del producte");
+        nomProducte = lector.nextLine();
+        System.out.println("Posa una descripció al producte");
+        descripcioProducte = lector.nextLine();
+        System.out.println("Digues el preu de compra");
+        preuCompra = Float.parseFloat(lector.nextLine());
+        System.out.println("Digues el preu de venda");
+        preuVenda = Float.parseFloat(lector.nextLine());
+
+        Producte p = new Producte(codiProducte, nomProducte, descripcioProducte, preuCompra, preuVenda);
+>>>>>>> 491ea988f210386df5acc41b19448cd9f4efbaea
 
         try {
 
@@ -81,25 +106,57 @@ public class Application {
 
             //Agafem tots els productes de la BD i els mostrem (per compvoar que s'ha afegit)
             ArrayList<Producte> productes = producteDAO.readProductes();
-            for (Producte prod: productes)
-            {
+            for (Producte prod : productes) {
                 System.out.println(prod);
             }
 
-        } catch (SQLException e) {          //TODO: tractar les excepcions
-            e.printStackTrace();
-            System.out.println(e.getErrorCode());
+        } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) { //excepcio en cas de que la clau primaria estigui repetida
+                modificarProducte(lector, p);
+            } else {
+                e.printStackTrace();
+            }
         }
 
     }
 
+    /**
+     * Metode que s'utilitza en cas de que volguem introduir un producte amb un codi que ja existeix
+     * s'utilitzara per demanar a l'usuari que vol fer, en cas de que vulgui cambiar el codi del producte
+     * el modificara pel nou que s'he l'hi demanara
+     * @param lector
+     * @param p passarem per parametre el producte que volem modificar
+     * @throws SQLException
+     */
+    private static void modificarProducte(Scanner lector, Producte p) throws SQLException {
+        System.out.println("El producte que estas intentant entrar ja existeix");
+        System.out.println("Que vols fer ara?" +
+                "\n1- Cambiar Codi" +
+                "\n2- Sortir");
+        int opcio = Integer.parseInt(lector.nextLine());
+        switch (opcio){
+            case 1: {
+                String nouCodi;
+                System.out.println("Digues el nou codi");
+                nouCodi = lector.nextLine();
+                p.setCodiProducte(nouCodi);
+                producteDAO.createProducte(p);
+            } case 2: {
+                break;
+            }
+        }
+    }
+
+
+    /**
+     * L'utilitzem per mostrar tot l'inventari de la màquina, mostran tots els productes que té
+     */
     private static void mostrarInventari() {
 
         try {
             //Agafem tots els productes de la BD i els mostrem
             ArrayList<Producte> productes = producteDAO.readProductes();
-            for (Producte prod: productes)
-            {
+            for (Producte prod : productes) {
                 System.out.println(prod);
             }
 
@@ -124,6 +181,7 @@ public class Application {
 
     /**
      * S'encarrega de mostrar la posició, quantitat i nom del producte
+     *
      * @throws SQLException
      */
     private static void mostrarMaquina() throws SQLException {
@@ -135,19 +193,17 @@ public class Application {
 
     /**
      * Fa el bucle buscant totes les dades
-     * @param llistaSlots pasa la llista de slots
+     *
+     * @param llistaSlots    pasa la llista de slots
      * @param llistaProducte pasa la llista productes
      * @throws SQLException
      */
     private static void mostrarProductes(ArrayList<Slot> llistaSlots, ArrayList<Producte> llistaProducte) throws SQLException {
-        for(Slot s : llistaSlots)
-        {
+        for (Slot s : llistaSlots) {
             System.out.println("Posició: " + s.getPosicio());
             System.out.println("Quantitat: " + s.getQuantitat());
-            for(Producte p : llistaProducte)
-            {
-                if(s.getCodiProducte().equals(p.getCodiProducte()))
-                {
+            for (Producte p : llistaProducte) {
+                if (s.getCodiProducte().equals(p.getCodiProducte())) {
                     System.out.println("Nom: " + p.getNom());
                 }
             }

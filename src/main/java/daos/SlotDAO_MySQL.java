@@ -61,6 +61,7 @@ public class SlotDAO_MySQL implements SlotDAO {
     @Override
     public void updateSlots(Slot s) throws SQLException {
 
+
     }
 
     @Override
