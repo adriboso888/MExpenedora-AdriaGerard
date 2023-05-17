@@ -1,12 +1,10 @@
-import daos.DAOFactory;
-import daos.ProducteDAO;
-import daos.ProducteDAO_MySQL;
-import daos.SlotDAO_MySQL;
+import daos.*;
 import model.Producte;
 import model.Slot;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLRecoverableException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,7 +16,7 @@ public class Application {
 
     static DAOFactory df = DAOFactory.getInstance();
     private static ProducteDAO producteDAO = new ProducteDAO_MySQL();            //TODO: passar a una classe DAOFactory
-    private static SlotDAO_MySQL slotDAO = new SlotDAO_MySQL();
+    private static SlotDAO slotDAO = new SlotDAO_MySQL();
 
     public static void main(String[] args) throws SQLException {
 
@@ -27,13 +25,13 @@ public class Application {
 
         do {
             mostrarMenu();
-            opcio = lector.nextInt();
+            opcio = Integer.parseInt(in.readLine());
 
             switch (opcio) {
                 case 1 -> mostrarMaquina();
                 case 2 -> comprarProducte();
                 case 10 -> mostrarInventari();
-                case 11 -> afegirProductes(lector);
+                case 11 -> afegirProductes();
                 case 12 -> modificarMaquina();
                 case 13 -> mostrarBenefici();
                 case -1 -> System.out.println("Bye...");
@@ -59,25 +57,11 @@ public class Application {
     /**
      * Crearem un producte nou passant-ho per parametres, demanant a l'usuari que introdueixi totes les dades
      *
-     * @param lector
      * @throws SQLException
      */
-    private static void afegirProductes(Scanner lector) throws SQLException {
-
-        /**
-         *      Crear un nou producte amb les dades que ens digui l'operari
-         *      Agefir el producte a la BD (tenir en compte les diferents situacions que poden passar)
-         *          El producte ja existeix
-         *              - Mostrar el producte que té el mateix codiProducte
-         *              - Preguntar si es vol actualitzar o descartar l'operació
-         *          El producte no existeix
-         *              - Afegir el producte a la BD
-         *
-         *     Podeu fer-ho amb llenguatge SQL o mirant si el producte existeix i després inserir o actualitzar
-         */
+    private static void afegirProductes() throws SQLException {
 
         Producte p = in.readProducte();
-        
 
         try {
             //Demanem de guardar el producte p a la BD
@@ -91,7 +75,7 @@ public class Application {
 
         } catch (SQLException e) {
             if (e.getErrorCode() == 1062) { //excepcio en cas de que la clau primaria estigui repetida
-                modificarProducte(lector, p);
+                modificarProducte(p);
             } else {
                 e.printStackTrace();
             }
@@ -103,11 +87,10 @@ public class Application {
      * Metode que s'utilitza en cas de que volguem introduir un producte amb un codi que ja existeix
      * s'utilitzara per demanar a l'usuari que vol fer, en cas de que vulgui cambiar el codi del producte
      * el modificara pel nou que s'he l'hi demanara
-     * @param lector
      * @param p passarem per parametre el producte que volem modificar
      * @throws SQLException
      */
-    private static void modificarProducte(Scanner lector, Producte p) throws SQLException {
+    private static void modificarProducte(Producte p) throws SQLException {
         System.out.println("El producte que estas intentant entrar ja existeix");
         System.out.println("Que vols fer ara?" +
                 "\n1- Cambiar Codi" +
@@ -117,7 +100,7 @@ public class Application {
             case 1: {
                 String nouCodi;
                 System.out.println("Digues el nou codi");
-                nouCodi = lector.nextLine();
+                nouCodi = in.readLine();
                 p.setCodiProducte(nouCodi);
                 producteDAO.createProducte(p);
             } case 2: {
@@ -139,8 +122,12 @@ public class Application {
                 System.out.println(prod);
             }
 
-        } catch (SQLException e) {          //TODO: tractar les excepcions
-            e.printStackTrace();
+        } catch (SQLRecoverableException e) {
+            System.out.println("s'ha perdut la connexió amb la base de dades");
+
+        }catch (SQLException ex)
+        {
+            System.out.println("Hi ha hagut un error inesperat");
         }
     }
 
