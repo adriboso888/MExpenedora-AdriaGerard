@@ -5,7 +5,6 @@ import daos.SlotDAO_MySQL;
 import model.Producte;
 import model.Slot;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,7 +14,8 @@ public class Application {
     //Passar al DAO -->     //TODO: llegir les propietats de la BD d'un fitxer de configuració (Properties)
     //En general -->        //TODO: Afegir un sistema de Logging per les classes.
 
-    private static DAOFactory df = DAOFactory.getInstance();
+    p
+    static DAOFactory df = DAOFactory.getInstance();
     private static ProducteDAO producteDAO = new ProducteDAO_MySQL();            //TODO: passar a una classe DAOFactory
     private static SlotDAO_MySQL slotDAO = new SlotDAO_MySQL();
     public static void main(String[] args) throws SQLException {
@@ -72,25 +72,7 @@ public class Application {
          *     Podeu fer-ho amb llenguatge SQL o mirant si el producte existeix i després inserir o actualitzar
          */
 
-        //Exemple de insersió SENSE ENTRADA DE DADES NI COMPROVACIÓ REPETITS
-        String codiProducte;
-        String nomProducte;
-        String descripcioProducte;
-        float preuCompra;
-        float preuVenda;
-        lector.nextLine();
-        System.out.println("Intordueix el codi del producte");
-        codiProducte = lector.nextLine();
-        System.out.println("Introdueix el nom del producte");
-        nomProducte = lector.nextLine();
-        System.out.println("Posa una descripció al producte");
-        descripcioProducte = lector.nextLine();
-        System.out.println("Digues el preu de compra");
-        preuCompra = Float.parseFloat(lector.nextLine());
-        System.out.println("Digues el preu de venda");
-        preuVenda = Float.parseFloat(lector.nextLine());
-
-        Producte p = new Producte(codiProducte, nomProducte,descripcioProducte,preuCompra,preuVenda);
+        Input input = Input.readProducte();
 
         try {
 
