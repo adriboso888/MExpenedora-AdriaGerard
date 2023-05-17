@@ -9,7 +9,11 @@ public class Input {
         lector = new Scanner(System.in);
     }
 
-    public static Input readProducte() {
+    /**
+     * Fem la creació del producte dintre d'aquest métode
+     * @return retorna un nou producte
+     */
+    public Producte readProducte() {
         String codiProducte;
         String nomProducte;
         String descripcioProducte;
@@ -29,5 +33,9 @@ public class Input {
 
         return new Producte(codiProducte, nomProducte,descripcioProducte,preuCompra,preuVenda);
 
+    }
+
+    public String readLine() {
+        return lector.nextLine();
     }
 }

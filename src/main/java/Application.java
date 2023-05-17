@@ -14,8 +14,7 @@ public class Application {
 
     //Passar al DAO -->     //TODO: llegir les propietats de la BD d'un fitxer de configuració (Properties)
     //En general -->        //TODO: Afegir un sistema de Logging per les classes.
-
-    p
+    static Input in = new Input();
     static DAOFactory df = DAOFactory.getInstance();
     private static ProducteDAO producteDAO = new ProducteDAO_MySQL();            //TODO: passar a una classe DAOFactory
     private static SlotDAO_MySQL slotDAO = new SlotDAO_MySQL();
@@ -64,7 +63,6 @@ public class Application {
      */
     private static void afegirProductes(Scanner lector) throws SQLException {
 
-<<<<<<< HEAD
         /**
          *      Crear un nou producte amb les dades que ens digui l'operari
          *      Agefir el producte a la BD (tenir en compte les diferents situacions que poden passar)
@@ -77,30 +75,13 @@ public class Application {
          *     Podeu fer-ho amb llenguatge SQL o mirant si el producte existeix i després inserir o actualitzar
          */
 
-        Input input = Input.readProducte();
-=======
-        String codiProducte;
-        String nomProducte;
-        String descripcioProducte;
-        float preuCompra;
-        float preuVenda;
-        lector.nextLine();
-        System.out.println("Intordueix el codi del producte");
-        codiProducte = lector.nextLine();
-        System.out.println("Introdueix el nom del producte");
-        nomProducte = lector.nextLine();
-        System.out.println("Posa una descripció al producte");
-        descripcioProducte = lector.nextLine();
-        System.out.println("Digues el preu de compra");
-        preuCompra = Float.parseFloat(lector.nextLine());
-        System.out.println("Digues el preu de venda");
-        preuVenda = Float.parseFloat(lector.nextLine());
 
-        Producte p = new Producte(codiProducte, nomProducte, descripcioProducte, preuCompra, preuVenda);
->>>>>>> 491ea988f210386df5acc41b19448cd9f4efbaea
+
+
+
+        Producte p = in.readProducte();
 
         try {
-
             //Demanem de guardar el producte p a la BD
             producteDAO.createProducte(p);
 
@@ -133,7 +114,7 @@ public class Application {
         System.out.println("Que vols fer ara?" +
                 "\n1- Cambiar Codi" +
                 "\n2- Sortir");
-        int opcio = Integer.parseInt(lector.nextLine());
+        int opcio = Integer.parseInt(in.readLine());
         switch (opcio){
             case 1: {
                 String nouCodi;
