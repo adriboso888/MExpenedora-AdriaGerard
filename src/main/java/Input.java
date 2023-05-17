@@ -13,13 +13,12 @@ public class Input {
      * Fem la creació del producte dintre d'aquest métode
      * @return retorna un nou producte
      */
-    public Producte readProducte() {
+    public static Producte readProducte() {
         String codiProducte;
         String nomProducte;
         String descripcioProducte;
         float preuCompra;
         float preuVenda;
-        lector.nextLine();
         System.out.println("Intordueix el codi del producte");
         codiProducte = lector.nextLine();
         System.out.println("Introdueix el nom del producte");

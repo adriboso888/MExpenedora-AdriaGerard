@@ -15,6 +15,7 @@ public class Application {
     //Passar al DAO -->     //TODO: llegir les propietats de la BD d'un fitxer de configuració (Properties)
     //En general -->        //TODO: Afegir un sistema de Logging per les classes.
     static Input in = new Input();
+
     static DAOFactory df = DAOFactory.getInstance();
     private static ProducteDAO producteDAO = new ProducteDAO_MySQL();            //TODO: passar a una classe DAOFactory
     private static SlotDAO_MySQL slotDAO = new SlotDAO_MySQL();
@@ -75,11 +76,8 @@ public class Application {
          *     Podeu fer-ho amb llenguatge SQL o mirant si el producte existeix i després inserir o actualitzar
          */
 
-
-
-
-
         Producte p = in.readProducte();
+        
 
         try {
             //Demanem de guardar el producte p a la BD
