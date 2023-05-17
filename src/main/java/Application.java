@@ -15,7 +15,7 @@ public class Application {
     //Passar al DAO -->     //TODO: llegir les propietats de la BD d'un fitxer de configuració (Properties)
     //En general -->        //TODO: Afegir un sistema de Logging per les classes.
 
-    p
+    public Input input = Input.readProducte();
     static DAOFactory df = DAOFactory.getInstance();
     private static ProducteDAO producteDAO = new ProducteDAO_MySQL();            //TODO: passar a una classe DAOFactory
     private static SlotDAO_MySQL slotDAO = new SlotDAO_MySQL();
@@ -64,7 +64,6 @@ public class Application {
      */
     private static void afegirProductes(Scanner lector) throws SQLException {
 
-<<<<<<< HEAD
         /**
          *      Crear un nou producte amb les dades que ens digui l'operari
          *      Agefir el producte a la BD (tenir en compte les diferents situacions que poden passar)
@@ -78,7 +77,6 @@ public class Application {
          */
 
         Input input = Input.readProducte();
-=======
         String codiProducte;
         String nomProducte;
         String descripcioProducte;
@@ -97,7 +95,7 @@ public class Application {
         preuVenda = Float.parseFloat(lector.nextLine());
 
         Producte p = new Producte(codiProducte, nomProducte, descripcioProducte, preuCompra, preuVenda);
->>>>>>> 491ea988f210386df5acc41b19448cd9f4efbaea
+
 
         try {
 
