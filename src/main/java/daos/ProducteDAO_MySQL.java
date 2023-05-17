@@ -40,13 +40,6 @@ public class ProducteDAO_MySQL implements ProducteDAO {
         if (rs.next()) {
             // El producte ja existeix a la base de dades
             System.out.println("El producte amb el códi " + p.getCodiProducte() + " ja existeix.");
-            System.out.println("Vigila la clau primaria!!");
-            System.out.println("Producte existent:");
-            System.out.println("Codi Producte: " + rs.getString(1));
-            System.out.println("Nom Producte: " + rs.getString(2));
-            System.out.println("Descripció Producte: " + rs.getString(3));
-            System.out.println("Preu Compra: " + rs.getFloat(4));
-            System.out.println("Preu Venda: " + rs.getFloat(5));
             System.out.println("Vigila la clau primària!!");
             return;
         }
@@ -57,7 +50,6 @@ public class ProducteDAO_MySQL implements ProducteDAO {
         ps.setString(3,p.getDescripcio());
         ps.setFloat(4,p.getPreuCompra());
         ps.setFloat(5,p.getPreuVenta());
-
         int rowCount = ps.executeUpdate();
     }
 

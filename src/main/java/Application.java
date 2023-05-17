@@ -55,6 +55,7 @@ public class Application {
          *      - modificar stock d'un producte que hi ha a la màquina
          *      - afegir més ranures a la màquina
          */
+
     }
 
     private static void afegirProductes(Scanner lector) {
@@ -104,7 +105,6 @@ public class Application {
             }
 
         } catch (SQLException e) {          //TODO: tractar les excepcions
-
             e.printStackTrace();
             System.out.println(e.getErrorCode());
         }
