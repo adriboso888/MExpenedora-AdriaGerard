@@ -28,6 +28,7 @@ public class SlotDAO_MySQL implements SlotDAO {
 
     /**
      * Aquesta funció s'encarrega de crear un slot
+     *
      * @param s pasarem per parametre un slot
      * @throws SQLException
      */
@@ -49,6 +50,7 @@ public class SlotDAO_MySQL implements SlotDAO {
     /**
      * Aquesta funció s'utilitza per guardar tots els slots dintre d'un array, per d'aquesta manera que pugui
      * tenir diferentes funcións com per exemple la de poguer llistar tots els slots amb la seva informació
+     *
      * @return retornara l'arraylist amb tots els slots
      * @throws SQLException
      */
@@ -58,8 +60,7 @@ public class SlotDAO_MySQL implements SlotDAO {
         PreparedStatement ps = conn.prepareStatement("SELECT * FROM slot");
         ResultSet rs = ps.executeQuery();
 
-        while(rs.next())
-        {
+        while (rs.next()) {
             Slot s = new Slot();
             s.setPosicio(Integer.parseInt(rs.getString(1)));
             s.setQuantitat(Integer.parseInt(rs.getString(2)));
@@ -93,6 +94,7 @@ public class SlotDAO_MySQL implements SlotDAO {
      * La funció modificarQuantitat l'utilitzarem per complementar la funció de agafarSlot,
      * serveix per un cop pasat el nombre de slot que volem mirar la quantitat que té, i en cas que sigui
      * superior a 0 l'hi restara 1 del slot
+     *
      * @param numSlot per parametre passarem el numero de slot que volem comprovar
      * @throws SQLException
      */
@@ -104,17 +106,23 @@ public class SlotDAO_MySQL implements SlotDAO {
         rs.next();
 
         String quantitat = rs.getString(1);
-            if(!quantitat.equals("0"))
-            {
-                pr = conn.prepareStatement("UPDATE slot SET quantitat = quantitat-1 WHERE posicio = ?");
-                pr.setInt(1, numSlot);
-                pr.executeUpdate();
-            }
+        if (!quantitat.equals("0")) {
+            pr = conn.prepareStatement("UPDATE slot SET quantitat = quantitat-1 WHERE posicio = ?");
+            pr.setInt(1, numSlot);
+            pr.executeUpdate();
+        }
     }
 
+    /**
+     * Aquesta fucnió s'encarrega de modificar el stock d'una taula, per fer-ho pasem com a parametre el stock que volem
+     * i la posició on volem que es posi
+     *
+     * @param stock       passem l'stock
+     * @param posicioSlot passem la posició
+     * @throws SQLException
+     */
     @Override
-    public void modificarStock(int stock, int posicioSlot) throws SQLException
-    {
+    public void modificarStock(int stock, int posicioSlot) throws SQLException {
         PreparedStatement pr = conn.prepareStatement("SELECT quantitat FROM slot WHERE posicio = ?");
         pr.setInt(1, posicioSlot);
         ResultSet rs = pr.executeQuery();
@@ -123,6 +131,19 @@ public class SlotDAO_MySQL implements SlotDAO {
         pr = conn.prepareStatement("UPDATE slot SET quantitat = ? WHERE posicio = ?");
         pr.setInt(1, stock);
         pr.setInt(2, posicioSlot);
+        pr.executeUpdate();
+    }
+
+    public void modificarPosicio(int posicioActual, int posicioNova) throws SQLException
+    {
+        PreparedStatement pr = conn.prepareStatement("SELECT posicio FROM slot WHERE posicio = ?");
+        pr.setInt(1, posicioActual);
+        ResultSet rs = pr.executeQuery();
+        rs.next();
+
+        pr = conn.prepareStatement("UPDATE slot SET posicio = ? WHERE posicio = ?");
+        pr.setInt(1, posicioNova);
+        pr.setInt(2, posicioActual);
         pr.executeUpdate();
     }
 }

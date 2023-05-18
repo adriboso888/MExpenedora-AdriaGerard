@@ -59,23 +59,24 @@ public class Input {
         System.out.println("1- Modificar posició");
         System.out.println("2- Modificar stock");
         System.out.println("3- Afegir slots");
+        System.out.println("0- Sortir");
         int opcio = Integer.parseInt(lector.nextLine());
 
 
-        switch (opcio){
-            case 1: {
+        switch (opcio) {
+            case 1 -> {
                 modificarPosicio();
-                break;
+                System.out.println("La posició s'ha modificat correctament");
             }
-            case 2: {
+            case 2 -> {
                 modificarStock();
                 System.out.println("El stock s'ha modificat correctament");
-                break;
             }
-            case 3: {
+            case 3 -> {
                 crearSlot();
                 System.out.println("S'ha creat el slot satisfactoriament");
-                break;
+            }
+            case 0 -> {
             }
         }
     }
@@ -86,8 +87,6 @@ public class Input {
      * @throws SQLException
      */
     public void crearSlot() throws SQLException {
-
-
 
         System.out.println("Digues el numero de posició");
         int posicio = Integer.parseInt(lector.nextLine());
@@ -110,6 +109,14 @@ public class Input {
         System.out.println("A quina posició el vols posar?");
         int posicio = Integer.parseInt(lector.nextLine());
         slot.modificarStock(stock, posicio);
+    }
+
+    public void modificarPosicio() throws SQLException {
+        System.out.println("Digues la posició que vols modificar");
+        int posicioActual = Integer.parseInt(lector.nextLine());
+        System.out.println("Digues la nova posició que vols");
+        int posicioNova = Integer.parseInt(lector.nextLine());
+        slot.modificarPosicio(posicioActual, posicioNova);
     }
 
     /**
