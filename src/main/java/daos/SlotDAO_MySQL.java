@@ -25,7 +25,7 @@ public class SlotDAO_MySQL implements SlotDAO {
             System.out.println(e);
         }
     }
-    
+
     /**
      * Aquesta funció s'encarrega de crear un slot
      * @param s pasarem per parametre un slot
@@ -39,7 +39,7 @@ public class SlotDAO_MySQL implements SlotDAO {
         ps.setString(3, s.getCodiProducte());
         ps.executeUpdate();
     }
-
+//hola
     @Override
     public Slot readSlot() throws SQLException {
         return null;
