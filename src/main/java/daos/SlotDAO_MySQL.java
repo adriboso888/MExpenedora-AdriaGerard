@@ -36,6 +36,8 @@ public class SlotDAO_MySQL implements SlotDAO {
         return null;
     }
 
+
+
     @Override
     public ArrayList<Slot> readSlots() throws SQLException {
         ArrayList<Slot> llistaSlots = new ArrayList<>();
@@ -73,6 +75,13 @@ public class SlotDAO_MySQL implements SlotDAO {
     }
 
 
+    /**
+     * La funció modificarQuantitat l'utilitzarem per complementar la funció de agafarSlot,
+     * serveix per un cop pasat el nombre de slot que volem mirar la quantitat que té, i en cas que sigui
+     * superior a 0 l'hi restara 1 del slot
+     * @param numSlot per parametre passarem el numero de slot que volem comprovar
+     * @throws SQLException
+     */
     @Override
     public void modificarQuantitat(int numSlot) throws SQLException {
         PreparedStatement pr = conn.prepareStatement("SELECT quantitat FROM slot WHERE posicio = ?");

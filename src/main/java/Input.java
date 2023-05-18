@@ -39,8 +39,13 @@ public class Input {
 
     }
 
+    /**
+     * Aquest métode s'utilitza per fer la compra del producte a traves del nombre de slot.
+     * Demanant quin es el slot que vol i cridant la funció modificarQuantitat, integrada en el SlotDAO_MySQL
+     * @throws SQLException
+     */
     public void agafarSlot() throws SQLException {
-        System.out.println("Digues el numero de slot que vols comprar");
+        System.out.println("Digues el numero de slot que vols comprar el producte");
         int numSlot = Integer.parseInt(lector.nextLine());
         SlotDAO_MySQL s = new SlotDAO_MySQL();
         s.modificarQuantitat(numSlot);
