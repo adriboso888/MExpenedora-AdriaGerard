@@ -10,12 +10,10 @@ import java.util.Scanner;
 
 public class Application {
 
-    //Passar al DAO -->     //TODO: llegir les propietats de la BD d'un fitxer de configuració (Properties)
-    //En general -->        //TODO: Afegir un sistema de Logging per les classes.
     static Input in = new Input();
 
     static DAOFactory df = DAOFactory.getInstance();
-    private static ProducteDAO producteDAO = new ProducteDAO_MySQL();            //TODO: passar a una classe DAOFactory
+    private static ProducteDAO producteDAO = new ProducteDAO_MySQL();
     private static SlotDAO slotDAO = new SlotDAO_MySQL();
 
     public static void main(String[] args) throws SQLException {
@@ -129,14 +127,6 @@ public class Application {
 
     private static void comprarProducte() throws SQLException {
 
-        /**
-         * Mínim: es realitza la compra indicant la posició on es troba el producte que es vol comprar
-         * Ampliació (0.5 punts): es permet entrar el NOM del producte per seleccionar-lo (abans cal mostrar els
-         * productes disponibles a la màquina)
-         *
-         * Tingueu en compte que quan s'ha venut un producte HA DE QUEDAR REFLECTIT a la BD que n'hi ha un menys.
-         * (stock de la màquina es manté guardat entre reinicis del programa)
-         */
         mostrarMaquina();
         in.agafarProducte();
 

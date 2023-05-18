@@ -23,5 +23,5 @@ public interface SlotDAO {
 
     void modificarQuantitat(String nom) throws SQLException;
 
-    public void modificarStock(int slot, int posicioSlot) throws SQLException;
+    public void modificarSlot(int slot, int posicioSlot) throws SQLException;
 }
