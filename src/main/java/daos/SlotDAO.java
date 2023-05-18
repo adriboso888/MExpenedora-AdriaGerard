@@ -20,7 +20,8 @@ public interface SlotDAO {
 
     public void deleteSlot(int posicio) throws SQLException;
 
-    public void modificarQuantitat(int numSlot) throws SQLException;
+
+    void modificarQuantitat(String nom) throws SQLException;
 
     public void modificarStock(int slot, int posicioSlot) throws SQLException;
 }

@@ -42,15 +42,11 @@ public class Application {
     }
 
 
+    /**
+     * Permet modificar diferents coses de la màquina com la posicio, quantitat o el producte
+     * @throws SQLException
+     */
     private static void modificarMaquina() throws SQLException {
-
-        /**
-         * Ha de permetre:
-         *      - modificar les posicions on hi ha els productes de la màquina (quin article va a cada lloc)
-         *      - modificar stock d'un producte que hi ha a la màquina
-         *      - afegir més ranures a la màquina
-         */
-
         in.modificarMaquina();
     }
 
@@ -141,9 +137,8 @@ public class Application {
          * Tingueu en compte que quan s'ha venut un producte HA DE QUEDAR REFLECTIT a la BD que n'hi ha un menys.
          * (stock de la màquina es manté guardat entre reinicis del programa)
          */
-
-        in.agafarSlot();
         mostrarMaquina();
+        in.agafarProducte();
 
     }
 
@@ -179,6 +174,9 @@ public class Application {
         }
     }
 
+    /**
+     * Métode que mostra el menú
+     */
     private static void mostrarMenu() {
         System.out.println("\nMenú de la màquina expenedora");
         System.out.println("=============================");

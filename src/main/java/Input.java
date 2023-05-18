@@ -42,17 +42,22 @@ public class Input {
     }
 
     /**
-     * Aquest métode s'utilitza per fer la compra del producte a traves del nombre de slot.
-     * Demanant quin es el slot que vol i cridant la funció modificarQuantitat, integrada en el SlotDAO_MySQL
+     * Aquest métode s'utilitza per fer la compra del producte a traves del nom.
+     * Demanant quin es el nom que vol i cridant la funció modificarQuantitat, integrada en el SlotDAO_MySQL
      * @throws SQLException
      */
-    public void agafarSlot() throws SQLException {
-        System.out.println("Digues el numero de slot que vols comprar el producte");
-        int numSlot = Integer.parseInt(lector.nextLine());
-        SlotDAO_MySQL s = new SlotDAO_MySQL();
-        s.modificarQuantitat(numSlot);
+    public void agafarProducte() throws SQLException
+    {
+        System.out.println("Digues el nom del producte que vols comprar");
+        String nom = lector.nextLine();
+        slot.modificarQuantitat(nom);
     }
 
+    /**
+     * Menú on dona diferentes opcións sobre modificacións que es poden fer a la màquina
+     *
+     * @throws SQLException
+     */
     public void modificarMaquina() throws SQLException
     {
         System.out.println("Que vols fer?");
@@ -111,6 +116,10 @@ public class Input {
         slot.modificarStock(stock, posicio);
     }
 
+    /**
+     * Aquesta funció s'encarrega de modificar la posició d'un producte
+     * @throws SQLException
+     */
     public void modificarPosicio() throws SQLException {
         System.out.println("Digues la posició que vols modificar");
         int posicioActual = Integer.parseInt(lector.nextLine());

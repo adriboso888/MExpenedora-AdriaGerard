@@ -95,20 +95,20 @@ public class SlotDAO_MySQL implements SlotDAO {
      * serveix per un cop pasat el nombre de slot que volem mirar la quantitat que té, i en cas que sigui
      * superior a 0 l'hi restara 1 del slot
      *
-     * @param numSlot per parametre passarem el numero de slot que volem comprovar
+     * @param nom per parametre passarem el numero de slot que volem comprovar
      * @throws SQLException
      */
     @Override
-    public void modificarQuantitat(int numSlot) throws SQLException {
-        PreparedStatement pr = conn.prepareStatement("SELECT quantitat FROM slot WHERE posicio = ?");
-        pr.setInt(1, numSlot);
+    public void modificarQuantitat(String nom) throws SQLException {
+        PreparedStatement pr = conn.prepareStatement("SELECT quantitat FROM slot, producte WHERE nom = ?");
+        pr.setString(1, nom);
         ResultSet rs = pr.executeQuery();
         rs.next();
 
         String quantitat = rs.getString(1);
         if (!quantitat.equals("0")) {
-            pr = conn.prepareStatement("UPDATE slot SET quantitat = quantitat-1 WHERE posicio = ?");
-            pr.setInt(1, numSlot);
+            pr = conn.prepareStatement("UPDATE slot SET quantitat = quantitat-1 WHERE codi_producte = (SELECT codi_producte FROM producte WHERE nom = ?)");
+            pr.setString(1, nom);
             pr.executeUpdate();
         }
     }
@@ -134,6 +134,12 @@ public class SlotDAO_MySQL implements SlotDAO {
         pr.executeUpdate();
     }
 
+    /**
+     * Aquesta funció modifica la posició on es guarda un producte
+     * @param posicioActual pasem la posició que volem cambiar
+     * @param posicioNova i la nova posició que volem
+     * @throws SQLException
+     */
     public void modificarPosicio(int posicioActual, int posicioNova) throws SQLException
     {
         PreparedStatement pr = conn.prepareStatement("SELECT posicio FROM slot WHERE posicio = ?");
