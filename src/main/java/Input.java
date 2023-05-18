@@ -69,6 +69,13 @@ public class Input {
                 break;
             }
             case 3: {
+                System.out.println("Digues el numero de posició");
+                int posicio = Integer.parseInt(lector.nextLine());
+                System.out.println("Digues la quantitat del producte");
+                int quantitat = Integer.parseInt(lector.nextLine());
+                System.out.println("A quin producte vols fer referencia amb aquest slot?");
+                String codiProducte = lector.nextLine();
+
                 break;
             }
         }

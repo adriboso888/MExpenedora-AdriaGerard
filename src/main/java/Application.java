@@ -42,7 +42,7 @@ public class Application {
     }
 
 
-    private static void modificarMaquina() {
+    private static void modificarMaquina() throws SQLException {
 
         /**
          * Ha de permetre:
@@ -51,6 +51,7 @@ public class Application {
          *      - afegir més ranures a la màquina
          */
 
+        in.modificarMaquina();
     }
 
     /**
