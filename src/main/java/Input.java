@@ -46,6 +46,29 @@ public class Input {
         s.modificarQuantitat(numSlot);
     }
 
+    public void modificarMaquina() throws SQLException
+    {
+        System.out.println("Que vols fer?");
+        System.out.println("1- Modificar posició");
+        System.out.println("2- Modificar stock");
+        System.out.println("3- Afegir slots");
+        int opcio = Integer.parseInt(lector.nextLine());
+
+        ProducteDAO_MySQL p = new ProducteDAO_MySQL();
+        switch (opcio){
+            case 1: {
+
+                break;
+            }
+            case 2: {
+                break;
+            }
+            case 3: {
+                break;
+            }
+        }
+    }
+
     public String readLine() {
         return lector.nextLine();
     }
