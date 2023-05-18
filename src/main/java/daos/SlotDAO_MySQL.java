@@ -39,7 +39,7 @@ public class SlotDAO_MySQL implements SlotDAO {
         ps.setString(3, s.getCodiProducte());
         ps.executeUpdate();
     }
-//hola
+
     @Override
     public Slot readSlot() throws SQLException {
         return null;
@@ -110,5 +110,19 @@ public class SlotDAO_MySQL implements SlotDAO {
                 pr.setInt(1, numSlot);
                 pr.executeUpdate();
             }
+    }
+
+    @Override
+    public void modificarStock(int stock, int posicioSlot) throws SQLException
+    {
+        PreparedStatement pr = conn.prepareStatement("SELECT quantitat FROM slot WHERE posicio = ?");
+        pr.setInt(1, posicioSlot);
+        ResultSet rs = pr.executeQuery();
+        rs.next();
+
+        pr = conn.prepareStatement("UPDATE slot SET quantitat = ? WHERE posicio = ?");
+        pr.setInt(1, stock);
+        pr.setInt(2, posicioSlot);
+        pr.executeUpdate();
     }
 }

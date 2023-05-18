@@ -11,6 +11,7 @@ public class Input {
     private static Scanner lector = null;
     private static int benefici;
 
+    public static  SlotDAO_MySQL slot = new SlotDAO_MySQL();
     public Input(){
         lector = new Scanner(System.in);
     }
@@ -60,25 +61,33 @@ public class Input {
         System.out.println("3- Afegir slots");
         int opcio = Integer.parseInt(lector.nextLine());
 
-        ProducteDAO_MySQL p = new ProducteDAO_MySQL();
+
         switch (opcio){
             case 1: {
-
+                modificarPosicio();
                 break;
             }
             case 2: {
+                modificarStock();
+                System.out.println("El stock s'ha modificat correctament");
                 break;
             }
             case 3: {
                 crearSlot();
+                System.out.println("S'ha creat el slot satisfactoriament");
                 break;
             }
         }
     }
 
+    /**
+     * Aquesta funció s'encarrega de demanar les dades necesaries per crear un slot,
+     * un cop demanades les dades es pasara a la funcio createSlot del SlotDAO
+     * @throws SQLException
+     */
     public void crearSlot() throws SQLException {
 
-        SlotDAO_MySQL slot = new SlotDAO_MySQL();
+
 
         System.out.println("Digues el numero de posició");
         int posicio = Integer.parseInt(lector.nextLine());
@@ -90,6 +99,23 @@ public class Input {
         slot.createSlot(s);
     }
 
+    /**
+     * Aquesta funcio s'utilitza per a modificar el stock d'un slot, demanant la posició del slot i el nou stock que es vol
+     * un cop demanades les dades es pasara per parametre a SlotDAO
+     * @throws SQLException
+     */
+    public void modificarStock() throws SQLException {
+        System.out.println("Digues el nou stock que vols posar");
+        int stock = Integer.parseInt(lector.nextLine());
+        System.out.println("A quina posició el vols posar?");
+        int posicio = Integer.parseInt(lector.nextLine());
+        slot.modificarStock(stock, posicio);
+    }
+
+    /**
+     * Aquesta funció s'utilitza pel lector
+     * @return retornara el lector
+     */
     public String readLine() {
         return lector.nextLine();
     }
