@@ -37,7 +37,12 @@ public class SlotDAO_MySQL implements SlotDAO {
     }
 
 
-
+    /**
+     * Aquesta funció s'utilitza per guardar tots els slots dintre d'un array, per d'aquesta manera que pugui
+     * tenir diferentes funcións com per exemple la de poguer llistar tots els slots amb la seva informació
+     * @return retornara l'arraylist amb tots els slots
+     * @throws SQLException
+     */
     @Override
     public ArrayList<Slot> readSlots() throws SQLException {
         ArrayList<Slot> llistaSlots = new ArrayList<>();

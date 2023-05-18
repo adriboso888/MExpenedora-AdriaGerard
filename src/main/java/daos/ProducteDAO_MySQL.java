@@ -26,6 +26,11 @@ public class ProducteDAO_MySQL implements ProducteDAO {
         }
     }
 
+    /**
+     * Aquesta funció s'utilitza per guardar productes dintre de la base de dades
+     * @param p pasarem per a parametre un objecte producte
+     * @throws SQLException
+     */
     @Override
     public void createProducte(Producte p) throws SQLException {
 
@@ -44,6 +49,12 @@ public class ProducteDAO_MySQL implements ProducteDAO {
         return null;
     }
 
+    /**
+     * Aquesta funció s'utilitzara per guardar tots els productes dintre d'un arraylist de productes,
+     * el cual podra ser utilitzat per diferentes coses com per exemple llistar, o buscar un producte en concret.
+     * @return retorna l'arrayList de productes
+     * @throws SQLException
+     */
     @Override
     public ArrayList<Producte> readProductes() throws SQLException {
         ArrayList<Producte> llistaProductes = new ArrayList<>();
