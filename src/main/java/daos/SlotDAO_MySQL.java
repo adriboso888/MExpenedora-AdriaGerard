@@ -122,7 +122,7 @@ public class SlotDAO_MySQL implements SlotDAO {
      * @throws SQLException
      */
     @Override
-    public void modificarStock(int stock, int posicioSlot) throws SQLException {
+    public void modificarSlot(int stock, int posicioSlot) throws SQLException {
         PreparedStatement pr = conn.prepareStatement("SELECT quantitat FROM slot WHERE posicio = ?");
         pr.setInt(1, posicioSlot);
         ResultSet rs = pr.executeQuery();
