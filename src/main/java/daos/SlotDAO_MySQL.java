@@ -25,7 +25,12 @@ public class SlotDAO_MySQL implements SlotDAO {
             System.out.println(e);
         }
     }
-
+    
+    /**
+     * Aquesta funció s'encarrega de crear un slot
+     * @param s pasarem per parametre un slot
+     * @throws SQLException
+     */
     @Override
     public void createSlot(Slot s) throws SQLException {
         PreparedStatement ps = conn.prepareStatement("INSERT INTO slot VALUES (?,?,?)");

@@ -1,4 +1,5 @@
 import daos.ProducteDAO_MySQL;
+import daos.SlotDAO;
 import daos.SlotDAO_MySQL;
 import model.Producte;
 import model.Slot;
@@ -69,16 +70,24 @@ public class Input {
                 break;
             }
             case 3: {
-                System.out.println("Digues el numero de posició");
-                int posicio = Integer.parseInt(lector.nextLine());
-                System.out.println("Digues la quantitat del producte");
-                int quantitat = Integer.parseInt(lector.nextLine());
-                System.out.println("A quin producte vols fer referencia amb aquest slot?");
-                String codiProducte = lector.nextLine();
-
+                crearSlot();
                 break;
             }
         }
+    }
+
+    public void crearSlot() throws SQLException {
+
+        SlotDAO_MySQL slot = new SlotDAO_MySQL();
+
+        System.out.println("Digues el numero de posició");
+        int posicio = Integer.parseInt(lector.nextLine());
+        System.out.println("Digues la quantitat del producte");
+        int quantitat = Integer.parseInt(lector.nextLine());
+        System.out.println("A quin producte vols fer referencia amb aquest slot?");
+        String codiProducte = lector.nextLine();
+        Slot s = new Slot(posicio, quantitat,codiProducte);
+        slot.createSlot(s);
     }
 
     public String readLine() {
