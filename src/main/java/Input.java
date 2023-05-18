@@ -1,9 +1,14 @@
+import daos.ProducteDAO_MySQL;
+import daos.SlotDAO_MySQL;
 import model.Producte;
+import model.Slot;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Input {
     private static Scanner lector = null;
+    private static int benefici;
 
     public Input(){
         lector = new Scanner(System.in);
@@ -13,7 +18,7 @@ public class Input {
      * Fem la creació del producte dintre d'aquest métode
      * @return retorna un nou producte
      */
-    public static Producte readProducte() {
+    public static Producte addProducte() {
         String codiProducte;
         String nomProducte;
         String descripcioProducte;
@@ -32,6 +37,13 @@ public class Input {
 
         return new Producte(codiProducte, nomProducte,descripcioProducte,preuCompra,preuVenda);
 
+    }
+
+    public void agafarSlot() throws SQLException {
+        System.out.println("Digues el numero de slot que vols comprar");
+        int numSlot = Integer.parseInt(lector.nextLine());
+        SlotDAO_MySQL s = new SlotDAO_MySQL();
+        s.modificarQuantitat(numSlot);
     }
 
     public String readLine() {

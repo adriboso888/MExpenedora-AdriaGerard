@@ -4,8 +4,6 @@ import model.Producte;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class ProducteDAO_MySQL implements ProducteDAO {
 
@@ -85,8 +83,4 @@ public class ProducteDAO_MySQL implements ProducteDAO {
 
     }
 
-    @Override
-    public void deleteProducte(String codiProducte) throws SQLException {
-
-    }
 }

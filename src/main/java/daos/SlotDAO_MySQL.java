@@ -1,11 +1,9 @@
 package daos;
 
-import model.Producte;
 import model.Slot;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SlotDAO_MySQL implements SlotDAO {
     //Dades de connexió a la base de dades
@@ -72,5 +70,22 @@ public class SlotDAO_MySQL implements SlotDAO {
     @Override
     public void deleteSlot(int posicio) throws SQLException {
 
+    }
+
+
+    @Override
+    public void modificarQuantitat(int numSlot) throws SQLException {
+        PreparedStatement pr = conn.prepareStatement("SELECT quantitat FROM slot WHERE posicio = ?");
+        pr.setInt(1, numSlot);
+        ResultSet rs = pr.executeQuery();
+        rs.next();
+
+        String quantitat = rs.getString(1);
+            if(!quantitat.equals("0"))
+            {
+                pr = conn.prepareStatement("UPDATE slot SET quantitat = quantitat-1 WHERE posicio = ?");
+                pr.setInt(1, numSlot);
+                pr.executeUpdate();
+            }
     }
 }

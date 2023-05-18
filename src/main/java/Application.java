@@ -20,8 +20,7 @@ public class Application {
 
     public static void main(String[] args) throws SQLException {
 
-        Scanner lector = new Scanner(System.in);            //TODO: passar Scanner a una classe InputHelper
-        int opcio = 0;
+        int opcio;
 
         do {
             mostrarMenu();
@@ -61,7 +60,7 @@ public class Application {
      */
     private static void afegirProductes() throws SQLException {
 
-        Producte p = in.readProducte();
+        Producte p = in.addProducte();
 
         try {
             //Demanem de guardar el producte p a la BD
@@ -131,7 +130,7 @@ public class Application {
         }
     }
 
-    private static void comprarProducte() {
+    private static void comprarProducte() throws SQLException {
 
         /**
          * Mínim: es realitza la compra indicant la posició on es troba el producte que es vol comprar
@@ -142,6 +141,8 @@ public class Application {
          * (stock de la màquina es manté guardat entre reinicis del programa)
          */
 
+        in.agafarSlot();
+        mostrarMaquina();
 
     }
 
