@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Input {
     private static Scanner lector = null;
-    private static int benefici;
+    private static float benefici;
 
     public static  SlotDAO_MySQL slot = new SlotDAO_MySQL();
     public Input(){
@@ -50,7 +50,7 @@ public class Input {
     {
         System.out.println("Digues el nom del producte que vols comprar");
         String nom = lector.nextLine();
-        slot.modificarQuantitat(nom);
+        benefici = benefici + slot.modificarQuantitat(nom);
     }
 
     /**
@@ -134,5 +134,11 @@ public class Input {
      */
     public String readLine() {
         return lector.nextLine();
+    }
+
+    public void mostrarVenefici()
+    {
+        System.out.println("El venefici final és de: ");
+        System.out.println(benefici);
     }
 }

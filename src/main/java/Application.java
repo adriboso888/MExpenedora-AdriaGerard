@@ -204,5 +204,6 @@ public class Application {
          * S'ha de crear una nova taula a la BD on es vagi realitzant un registre de les vendes o els beneficis al
          * llarg de la vida de la màquina.
          */
+        in.mostrarVenefici();
     }
 }

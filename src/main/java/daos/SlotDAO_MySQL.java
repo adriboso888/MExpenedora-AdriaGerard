@@ -99,7 +99,8 @@ public class SlotDAO_MySQL implements SlotDAO {
      * @throws SQLException
      */
     @Override
-    public void modificarQuantitat(String nom) throws SQLException {
+    public float modificarQuantitat(String nom) throws SQLException {
+        float benefici = 0;
         PreparedStatement pr = conn.prepareStatement("SELECT quantitat FROM slot, producte WHERE nom = ?");
         pr.setString(1, nom);
         ResultSet rs = pr.executeQuery();
@@ -107,10 +108,23 @@ public class SlotDAO_MySQL implements SlotDAO {
 
         String quantitat = rs.getString(1);
         if (!quantitat.equals("0")) {
-            pr = conn.prepareStatement("UPDATE slot SET quantitat = quantitat-1 WHERE codi_producte = (SELECT codi_producte FROM producte WHERE nom = ?)");
+            pr = conn.prepareStatement("UPDATE slot SET quantitat = quantitat-1  WHERE codi_producte = (SELECT codi_producte FROM producte WHERE nom = ?)");
             pr.setString(1, nom);
             pr.executeUpdate();
         }
+
+        String query = "SELECT preu_compra - preu_venta as beneficiFinal FROM producte WHERE nom = ?";
+        pr = conn.prepareStatement(query);
+        pr.setString(1, nom);
+        rs = pr.executeQuery();
+
+        if(rs.next())
+        {
+            benefici = rs.getFloat("beneficiFinal");
+        }
+
+
+        return benefici;
     }
 
     /**
