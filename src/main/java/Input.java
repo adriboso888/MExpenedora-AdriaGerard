@@ -74,7 +74,7 @@ public class Input {
                 System.out.println("La posició s'ha modificat correctament");
             }
             case 2 -> {
-                modificarSlot();
+                modificarStock();
                 System.out.println("El stock s'ha modificat correctament");
             }
             case 3 -> {
@@ -108,12 +108,12 @@ public class Input {
      * un cop demanades les dades es pasara per parametre a SlotDAO
      * @throws SQLException
      */
-    public void modificarSlot() throws SQLException {
+    public void modificarStock() throws SQLException {
         System.out.println("Digues el nou stock que vols posar");
         int stock = Integer.parseInt(lector.nextLine());
         System.out.println("A quina posició el vols posar?");
         int posicio = Integer.parseInt(lector.nextLine());
-        slot.modificarSlot(stock, posicio);
+        slot.modificarStock(stock, posicio);
     }
 
     /**
