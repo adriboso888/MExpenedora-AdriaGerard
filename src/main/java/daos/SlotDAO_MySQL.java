@@ -113,8 +113,7 @@ public class SlotDAO_MySQL implements SlotDAO {
             pr.executeUpdate();
         }
 
-        String query = "SELECT preu_compra - preu_venta as beneficiFinal FROM producte WHERE nom = ?";
-        pr = conn.prepareStatement(query);
+        pr = conn.prepareStatement("SELECT preu_venta - preu_copmra as beneficiFinal FROM producte WHERE nom = ?");
         pr.setString(1, nom);
         rs = pr.executeQuery();
 

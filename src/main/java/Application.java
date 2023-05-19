@@ -188,22 +188,11 @@ public class Application {
         System.out.println("[-1] Sortir de l'aplicació");
     }
 
+    /**
+     * Aquest métode s'utiltiza per a mostrar el benefici final de les ventes restant el preu de la venta menys el de compra
+     */
     private static void mostrarBenefici() {
 
-        /** Ha de mostrar el benefici de la sessió actual de la màquina, cada producte té un cost de compra
-         * i un preu de venda. La suma d'aquesta diferència de tots productes que s'han venut ens donaran el benefici.
-         *
-         * Simplement s'ha de donar el benefici actual des de l'últim cop que s'ha engegat la màquina. (es pot fer
-         * amb un comptador de benefici que s'incrementa per cada venda que es fa)
-         */
-
-        /** AMPLIACIÓ **
-         * En entrar en aquest menú ha de permetre escollir entre dues opcions: veure el benefici de la sessió actual o
-         * tot el registre de la màquina.
-         *
-         * S'ha de crear una nova taula a la BD on es vagi realitzant un registre de les vendes o els beneficis al
-         * llarg de la vida de la màquina.
-         */
         in.mostrarVenefici();
     }
 }
